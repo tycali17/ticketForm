@@ -1,0 +1,105 @@
+<!-- Reactive form -->
+<style>
+.nav {
+    background: lightseagreen;
+    color: white;
+    height: 7vh;
+    min-height:40px;
+}
+#content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 93vh;
+}
+.ticketIntro{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+.form{
+    width: 450px;
+}
+#peopleVal{
+    margin-top: 3px;
+    font-size: 30px;
+}
+#results{
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 93vh;
+}
+</style>
+
+<mat-toolbar class="nav">
+    <a mat-button routerLink="">Home</a>
+    <a mat-button routerLink="/ticket-submission">Ticket Submission</a>
+</mat-toolbar>
+
+<form id="content" [formGroup]="ticketForm" (ngSubmit)="onSubmit(ticketForm.value)">
+
+    <h1 class="ticketIntro">Have an issue with the portal application? Submit a ticket!</h1>
+
+    <mat-form-field class="form" appearance="fill">
+        <mat-label>First name</mat-label>
+        <input matInput formControlName="first" name="first" required>
+        <mat-error *ngIf="ticketForm.controls.first.invalid">{{firstError()}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="form" appearance="fill">
+        <mat-label>Last name</mat-label>
+        <input matInput formControlName="last" name="last" required>
+        <mat-error *ngIf="ticketForm.controls.last.invalid">{{lastError()}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="form" appearance="fill">
+        <mat-label>Email address</mat-label>
+        <input matInput formControlName="email" name="email" required>
+        <mat-error *ngIf="ticketForm.controls.email.invalid">{{emailError()}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="form" appearance="fill">
+        <mat-label>Does the issue prevent me from doing my job?</mat-label>
+        <mat-select formControlName="job" name="job" required>
+            <mat-option value="Yes">Yes</mat-option>
+            <mat-option value="No">No</mat-option>
+        </mat-select>
+        <mat-error *ngIf="ticketForm.controls.job.invalid">{{jobError()}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="form" appearance="fill">
+        <mat-label>Is there a viable workaround that enables me to keep working?</mat-label>
+        <mat-select formControlName="workaround" name="workaround" required>
+            <mat-option value="Yes">Yes</mat-option>
+            <mat-option value="No">No</mat-option>
+        </mat-select>
+        <mat-error *ngIf="ticketForm.controls.workaround.invalid">{{workaroundError()}}</mat-error>
+    </mat-form-field>
+
+    <mat-label>How many people does this impact?</mat-label>
+    <p id="peopleVal">{{peopleVal}}</p>
+    <mat-slider min="0" max="100" step="5" formControlName="people"
+    (change)="updateCount($event)" name="people" required></mat-slider>
+    <mat-error *ngIf="ticketForm.controls.people.invalid">{{peopleError()}}</mat-error>
+
+
+    <mat-form-field class="form" appearance="fill">
+        <mat-label>Additional details...</mat-label>
+        <textarea maxlength="500" name="details" formControlName="details" matInput></textarea>
+    </mat-form-field>
+
+    <button mat-flat-button type="submit" [disabled]="!ticketForm.valid" color="primary">Submit</button>
+
+</form>
+
+<div id="results">
+    <h1>Here's what we saved...</h1>
+    <h1 id="one"></h1>
+    <h1 id="two"></h1>
+    <h1 id="three"></h1>
+    <h1 id="four"></h1>
+    <h1 id="five"></h1>
+    <h1 id="six"></h1>
+    <h1 id="seven"></h1>
+</div>
