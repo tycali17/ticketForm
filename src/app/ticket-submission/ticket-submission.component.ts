@@ -77,6 +77,10 @@ export class TicketSubmissionComponent implements OnInit {
     var strPeople = this.peopleVal.toString();
     var form = document.getElementById("content")
     var results = document.getElementById("results")
+
+    form!.style.display = "none"
+    results!.style.display = "flex"
+
     sessionStorage.setItem('first',data.first)
     sessionStorage.setItem('last',data.last)
     sessionStorage.setItem('email',data.email)
@@ -85,30 +89,34 @@ export class TicketSubmissionComponent implements OnInit {
     sessionStorage.setItem('people',strPeople)
     sessionStorage.setItem('details',data.details)
 
-    form!.style.display = "none"
-
-    results!.style.display = "flex"
+    var result1 = sessionStorage.getItem('first');
+    var result2 = sessionStorage.getItem('last');
+    var result3 = sessionStorage.getItem('email');
+    var result4 = sessionStorage.getItem('job');
+    var result5 = sessionStorage.getItem('workaround');
+    var result6 = sessionStorage.getItem('people');
+    var result7 = sessionStorage.getItem('details');
     
     var one = document.getElementById('one')
-    one!.innerText = "First name: " + data.first
+    one!.innerText = "First name: " + result1
 
     var two = document.getElementById('two')
-    two!.innerText = "Last name: " + data.last
+    two!.innerText = "Last name: " + result2
 
     var three = document.getElementById('three')
-    three!.innerText = "Email: " + data.email
+    three!.innerText = "Email: " + result3
 
     var four = document.getElementById('four')
-    four!.innerText = "Can do job? " + data.job
+    four!.innerText = "Can do job? " + result4
 
     var five = document.getElementById('five')
-    five!.innerText = "Any workarounds? " + data.workaround
+    five!.innerText = "Any workarounds? " + result5
 
     var six = document.getElementById('six')
-    six!.innerText ="People affected: " + strPeople
+    six!.innerText ="People affected: " + result6
 
     var seven = document.getElementById('seven')
-    seven!.innerText = data.details
+    seven!.innerText = "" + result7
 
   }
 
